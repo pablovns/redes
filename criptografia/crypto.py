@@ -20,8 +20,8 @@ def main():
     args = parser.parse_args()
 
     key = args.key
-    if len(key) % 8 != 0:
-        key = key + ('0' * (8 - (len(key) % 8)))
+    # if len(key) % 8 != 0:
+    #     key += ('0' * (8 - (len(key) % 8)))
 
     if args.input:
         with open(args.input, 'r') as f:
@@ -38,7 +38,7 @@ def main():
         print(entrada)
         print(saida)
         print(algo)
-        print(ENCRYPT)
+        print(decrypt)
         print(senha)
 
 
