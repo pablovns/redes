@@ -10,14 +10,16 @@ def generate_keys(user, keysize):
     FILE_PRIVATE_KEY = f'{user}_private_key.pem'
 
     #Inclua aqui o código para geração de chaves
-    
+    (publicKey, privateKey) = rsa.newkeys(1024)
+    with open('keys/publicKey.pem', 'wb') as p:
+        p.write(publicKey.save_pkcs1('PEM'))
+    with open('keys/privateKey.pem', 'wb') as p:
+        p.write(privateKey.save_pkcs1('PEM'))
 
-    pass
 
 if __name__ == '__main__':
-
     #Default values
-    USER='user'
+    USER = 'user'
     KEYSIZE = 1024
 
     parser = argparse.ArgumentParser()

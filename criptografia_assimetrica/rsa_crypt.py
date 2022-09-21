@@ -4,12 +4,20 @@ import argparse
 #rsa_crypt [-d] -i ARQ_IN -o ARQ_OUT -k ARQ_PASSWORD
 
 def cifrar(arq_in, arq_out, arq_key):
-    #Implemente aqui o código para criptografar
-    pass
+    with open(arq_in, 'r') as f:
+        data = f.read()
+    with open(arq_key, 'rb') as f:
+        key = f.read()
+    with open(arq_out, 'w') as f:
+        f.write(rsa.encrypt(data.encode('ascii'), key))
 
 def decifrar(arq_in, arq_out, arq_key):
-    #Implemente aqui o código para descriptografar
-    pass
+    with open(arq_in, 'r') as f:
+        data = f.read()
+    with open(arq_key, 'rb') as f:
+        key = f.read()
+    with open(arq_out, 'w') as f:
+        f.write(rsa.decrypt(data, key).decode('ascii'))
 
 decrypt = False
 

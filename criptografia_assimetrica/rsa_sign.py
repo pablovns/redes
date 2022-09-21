@@ -4,8 +4,10 @@ import argparse
 #rsa_sign [-v] [-s] -i ARQ_TO_SIGN -t ARQ_SIGNATURE -k ARQ_KEY
 
 def sign(arq_assinar, arq_assinatura, arq_chave_priv):
-    #Código para assinar o arquivo aqui
-    pass
+    with open(arq_assinar, 'w') as f:
+        pass
+    # return rsa.sign(message.encode('ascii'), key, 'SHA-1')
+  
 
 def check_sign(arq_verificar, arq_assinatura, arq_chave_pub):
     #Código para verificar a assinatura do arquivo aqui
