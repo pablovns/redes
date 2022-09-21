@@ -1,95 +1,70 @@
-import argparse
 import rsa
+import argparse
 
+#rsa_crypt [-d] -i ARQ_IN -o ARQ_OUT -k ARQ_PASSWORD
 
-def main():
-    """Criptografa e descriptografa arquivos"""
-    
+def cifrar(arq_in, arq_out, arq_key):
+    #Implemente aqui o código para criptografar
+    pass
+
+def decifrar(arq_in, arq_out, arq_key):
+    #Implemente aqui o código para descriptografar
+    pass
+
+decrypt = False
+
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-d', 
-        action='store_true',
-        help='Descriptografa o arquivo de entrada.')
-
-    parser.add_argument('-e', 
-        action='store_true',
-        help='Criptografa o arquivo de entrada.')
-
-    parser.add_argument('-i',
+    parser.add_argument('-d', '--decrypt',
+        help='Descriptografar',
+        action = 'store_true'
+        )
+    parser.add_argument('-i', '--input',
+        help='Arquivo de entrada',
         type=str,
-        help='Arquivo de entrada.',
-        required=True)
-    
-    parser.add_argument('-o',
+        required=True
+        )
+    parser.add_argument('-o', '--output',
+        help='Arquivo de saída',
         type=str,
-        help='Arquivo de saída.')
+        )
 
-    parser.add_argument('-k',
+    parser.add_argument('-k', '--key',
+        help='Nome do arquivo com a chave para cifrar ou decifrar',
         type=str,
-        help='Arquivo com a chave.',
-        required=True)
+        required=True
+        )
+
+    parser.add_argument('-v', '--verbose',
+        help='Apresenta informações sobre a operação',
+        action='store_true'
+        )
 
     args = parser.parse_args()
 
-    #Verifica se é para descriptografar
-    if args.d:
-        encrypt=False
+    if args.decrypt:
+        decrypt = True
+    if args.input:
+        ARQ_IN = args.input
+        ARQ_OUT = f'{ARQ_IN}.out'
+
+    if args.output:
+        ARQ_OUT = args.output
+
+    if args.key:
+        ARQ_KEY = args.key
+
+    if args.verbose:
+        print(f'Decrypt        : {decrypt}')
+        print(f'Arquivo senha  : {ARQ_KEY}')
+        print(f'Arquivo entrada: {ARQ_IN}')
+        print(f'Arquivo saida  : {ARQ_OUT}')
+
+    if decrypt:
+        decifrar(ARQ_IN, ARQ_OUT, ARQ_KEY)
     else:
-        encrypt = True
+        cifrar(ARQ_IN, ARQ_OUT, ARQ_KEY)
 
-    #Algoritmo
-    algo = 'des'
-    if args.a:
-        algo = args.a
-    algoritmos = {
-        "des": DES, 
-        "des3": DES3, 
-        "aes": AES
-    }
-    algo = algoritmos[algo]
-
-    #Entrada
-    arq_entrada = args.i
-
-    #Saida
-    arq_saida = f'{arq_entrada}.crypto'
-    if args.o:
-        arq_saida = args.o
-
-    #Senha
-    senha = args.k
-
-    if args.v:
-        print('Entrada: ', arq_entrada)
-        print('Saida: ', arq_saida)
-        print('Algoritmo: ', algo)
-        print('Criptografar: ', encrypt)
-        print('Senha: ', senha)
 
     
-    if encrypt:
-        criptografar(arq_entrada, arq_saida, algo, senha)
-    else:
-        descriptografar(arq_entrada, arq_saida, algo, senha)
-
-
-def criptografar(entrada, saida, alg, senha):
-    with open(entrada, 'r') as f:
-        dados = f.read()
-    alg_obj = alg.new(senha, alg.MODE_ECB)
-    cifrado = alg_obj.encrypt(dados)
-    with open(saida, 'w') as f:
-        f.write(cifrado)
-
-
-def descriptografar(entrada, saida, alg, senha):
-    with open(entrada, 'r') as f:
-        dados = f.read()
-    alg_obj = alg.new(senha, alg.MODE_ECB)
-    decifrado = alg_obj.decrypt(dados)
-    with open(saida, 'w') as f:
-        f.write(decifrado)
-
-
-if __name__ == '__main__':
-    main()
