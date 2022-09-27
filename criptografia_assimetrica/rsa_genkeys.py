@@ -6,7 +6,7 @@ import argparse
 
 def generate_keys(user, keysize):
     #Utilize estes nomes de arquivo para armazenar as chaves
-    FILE_PUBLIC_KEY = f'{user}_publib_key.pem'
+    FILE_PUBLIC_KEY = f'{user}_public_key.pem'
     FILE_PRIVATE_KEY = f'{user}_private_key.pem'
 
     #Inclua aqui o código para geração de chaves
