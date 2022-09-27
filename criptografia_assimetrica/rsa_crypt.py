@@ -7,16 +7,16 @@ def cifrar(arq_in, arq_out, arq_key):
     with open(arq_in, 'r') as f:
         data = f.read()
     with open(arq_key, 'rb') as f:
-        key = f.read()
-    with open(arq_out, 'w') as f:
+        key = rsa.PublicKey.load_pkcs1(f.read())
+    with open(arq_out, 'wb') as f:
         f.write(rsa.encrypt(data.encode('ascii'), key))
 
 def decifrar(arq_in, arq_out, arq_key):
     with open(arq_in, 'r') as f:
         data = f.read()
     with open(arq_key, 'rb') as f:
-        key = f.read()
-    with open(arq_out, 'w') as f:
+        key = rsa.PrivateKey.load_pkcs1(f.read())
+    with open(arq_out, 'wb') as f:
         f.write(rsa.decrypt(data, key).decode('ascii'))
 
 decrypt = False
@@ -37,13 +37,11 @@ if __name__ == '__main__':
         help='Arquivo de saída',
         type=str,
         )
-
     parser.add_argument('-k', '--key',
         help='Nome do arquivo com a chave para cifrar ou decifrar',
         type=str,
         required=True
         )
-
     parser.add_argument('-v', '--verbose',
         help='Apresenta informações sobre a operação',
         action='store_true'
