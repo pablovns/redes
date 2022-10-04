@@ -12,11 +12,11 @@ def cifrar(arq_in, arq_out, arq_key):
         f.write(rsa.encrypt(data.encode('ascii'), key))
 
 def decifrar(arq_in, arq_out, arq_key):
-    with open(arq_in, 'r') as f:
+    with open(arq_in, 'rb') as f:
         data = f.read()
     with open(arq_key, 'rb') as f:
         key = rsa.PrivateKey.load_pkcs1(f.read())
-    with open(arq_out, 'wb') as f:
+    with open(arq_out, 'w') as f:
         f.write(rsa.decrypt(data, key).decode('ascii'))
 
 decrypt = False

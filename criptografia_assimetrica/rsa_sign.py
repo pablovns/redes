@@ -8,7 +8,7 @@ def sign(arq_assinar, arq_assinatura, arq_chave_priv):
         message = f.read()
     with open(arq_chave_priv, 'r') as f:
         key = f.read()
-    with open(arq_assinar, 'w') as f:
+    with open(arq_assinar, 'w') as f: 
         f.write(rsa.sign(message.encode('ascii'), key, 'SHA-1'))
 
 
